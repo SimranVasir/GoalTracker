@@ -19,9 +19,13 @@ public class GoalActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String goal= intent.getStringExtra(ViewGoalActivity.EXTRA_MESSAGE);
 
+        // set text for textview in the xml file
+        TextView textViewGoal = (TextView) findViewById(R.id.new_goal);
+        textViewGoal.setText(goal);
+
         // Create the text view
-        TextView textView = (TextView) findViewById(R.id.new_goal);
-        textView.setText(goal);
+        TextView textViewDeadline = (TextView) findViewById(R.id.goal_deadline);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

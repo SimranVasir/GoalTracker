@@ -1,5 +1,7 @@
 package com.example.simran.goaltracker;
 
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -113,4 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

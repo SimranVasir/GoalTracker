@@ -19,4 +19,11 @@
         android:layout_height="wrap_content"
         android:hint="@string/saved_goal_default"/>
 
+    <TextView android:id= "@+id/goal_deadline"
+        android:layout_below="@id/new_goal"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/deadline_default"/>
+
 </RelativeLayout>

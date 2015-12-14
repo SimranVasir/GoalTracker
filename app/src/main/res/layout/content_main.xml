@@ -19,6 +19,7 @@
         android:text="GOAL TRACKER"
         android:textSize="20sp"
         android:textAlignment="center" />
+
     <ListView
         android:id="@+id/options_list"
         android:layout_below="@id/Title_name"

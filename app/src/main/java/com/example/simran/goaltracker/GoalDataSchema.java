@@ -14,10 +14,13 @@ public class GoalDataSchema {
     public GoalDataSchema() {}
     /* Inner class that defines the table contents */
     public static abstract class FeedEntry implements BaseColumns {
-        public static final String TABLE_NAME = "entry";
-        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
-        public static final String COLUMN_NAME_TITLE = "title";
-        //public static final String COLUMN_NAME_SUBTITLE = "subtitle";
-
+        public static final String TABLE_NAME = "goal";
+        public static final String COLUMN_NAME_GOAL_NAME = "goalname";
+        public static final String COLUMN_NAME_COMPLETED = "completed";
+        public static final String COLUMN_NAME_DATE_YEAR = "year";
+        public static final String COLUMN_NAME_DATE_MONTH= "month";
+        public static final String COLUMN_NAME_DATE_DAY = "day";
+        public static final String COLUMN_NAME_TIME_HOUR_OF_DAY = "hour";
+        public static final String COLUMN_NAME_TIME_MINUTE = "minute";
     }
 }

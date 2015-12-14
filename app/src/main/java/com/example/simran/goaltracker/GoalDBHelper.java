@@ -13,12 +13,18 @@ import android.util.Log;
 public class GoalDBHelper extends SQLiteOpenHelper {
     private static GoalDBHelper instance = null;
     private static final String TEXT_TYPE = " TEXT";
+    private static final String INTEGER_TYPE = " INTEGER";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + GoalDataSchema.FeedEntry.TABLE_NAME + " (" +
                     GoalDataSchema.FeedEntry._ID + " INTEGER PRIMARY KEY," +
-                    GoalDataSchema.FeedEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                    GoalDataSchema.FeedEntry.COLUMN_NAME_TITLE + TEXT_TYPE +
+                    GoalDataSchema.FeedEntry.COLUMN_NAME_GOAL_NAME + TEXT_TYPE + COMMA_SEP +
+                    GoalDataSchema.FeedEntry.COLUMN_NAME_COMPLETED + INTEGER_TYPE + COMMA_SEP +
+                    GoalDataSchema.FeedEntry.COLUMN_NAME_DATE_YEAR + INTEGER_TYPE + COMMA_SEP +
+                    GoalDataSchema.FeedEntry.COLUMN_NAME_DATE_MONTH + INTEGER_TYPE + COMMA_SEP +
+                    GoalDataSchema.FeedEntry.COLUMN_NAME_DATE_DAY+ INTEGER_TYPE + COMMA_SEP +
+                    GoalDataSchema.FeedEntry.COLUMN_NAME_TIME_HOUR_OF_DAY + INTEGER_TYPE + COMMA_SEP +
+                    GoalDataSchema.FeedEntry.COLUMN_NAME_TIME_MINUTE + INTEGER_TYPE +
     // Any other options for the CREATE command
             " )";
 
@@ -27,7 +33,7 @@ public class GoalDBHelper extends SQLiteOpenHelper {
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "FeedReader.db";
 
     private GoalDBHelper(Context context) {
@@ -55,13 +61,17 @@ public class GoalDBHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+    public void deleteDataBase(SQLiteDatabase db){
+
+    }
+
     public void deleteSomeData(SQLiteDatabase db) {
         //delete data from database
         Log.d("delete", "starting delete query");
 
 
         // Define 'where' part of query.
-        String selection = GoalDataSchema.FeedEntry.COLUMN_NAME_TITLE + " LIKE ?";
+        String selection = GoalDataSchema.FeedEntry.COLUMN_NAME_GOAL_NAME + " LIKE ?";
         // Specify arguments in placeholder order.
         String[] selectionArgs = { String.valueOf("testing") };
         // Issue SQL statement.
@@ -76,8 +86,8 @@ public class GoalDBHelper extends SQLiteOpenHelper {
 // you will actually use after this query.
         String[] projection = {
                 GoalDataSchema.FeedEntry._ID,
-                GoalDataSchema.FeedEntry.COLUMN_NAME_TITLE,
-                GoalDataSchema.FeedEntry.COLUMN_NAME_ENTRY_ID
+                GoalDataSchema.FeedEntry.COLUMN_NAME_GOAL_NAME,
+                GoalDataSchema.FeedEntry.COLUMN_NAME_GOAL_NAME
 
         };
 
@@ -107,7 +117,7 @@ public class GoalDBHelper extends SQLiteOpenHelper {
                 if(c.isFirst())Log.i("debugging", "isFirst");
                 if(c.isLast())Log.i("debugging", "isLast");
 
-                String goal = c.getString(c.getColumnIndex(GoalDataSchema.FeedEntry.COLUMN_NAME_TITLE));
+                String goal = c.getString(c.getColumnIndex(GoalDataSchema.FeedEntry.COLUMN_NAME_GOAL_NAME));
                 goalArray[i] = goal;
                 i++;
                 c.moveToNext();
@@ -128,21 +138,25 @@ public class GoalDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertGoal(SQLiteDatabase db, String goal) {
+    public void insertGoal(SQLiteDatabase db, String goal, int year, int month, int day, int hour, int minute) {
 
         Log.i("insert", "insert started");
 
         // Create a new map of values, where column names are the keys
         ContentValues contentValues = new ContentValues();
-        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_ENTRY_ID, "hello");
-        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_TITLE, goal);
-
+        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_GOAL_NAME, goal);
+        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_COMPLETED, 0);
+        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_DATE_YEAR, year);
+        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_DATE_MONTH, month);
+        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_DATE_DAY, day);
+        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_TIME_HOUR_OF_DAY, hour);
+        contentValues.put(GoalDataSchema.FeedEntry.COLUMN_NAME_TIME_MINUTE, minute);
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
         newRowId = db.insert(
                 GoalDataSchema.FeedEntry.TABLE_NAME,
-                GoalDataSchema.FeedEntry.COLUMN_NAME_TITLE,
+                GoalDataSchema.FeedEntry.COLUMN_NAME_GOAL_NAME,
                 contentValues);
         Log.i("insert", "insert ended");
     }

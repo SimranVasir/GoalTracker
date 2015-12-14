@@ -26,12 +26,29 @@
         android:hint="@string/type_new_goal" />
 
     <Button
+        android:id="@+id/fragment_time_picker_button"
+        android:layout_below="@id/type_new_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_time"
+        android:onClick="showTimePickerDialog" />
+
+    <Button
+        android:id="@+id/fragment_date_picker_button"
+        android:layout_below="@id/fragment_time_picker_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick a date"
+        android:onClick="showDatePickerDialog" />
+
+    <Button
+        android:id="@+id/save_new_goal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_submit"
-        android:onClick="saveGoalInDataBase"/>
-
+        android:onClick="saveGoalInDataBase"
+        />
 
 </RelativeLayout>
