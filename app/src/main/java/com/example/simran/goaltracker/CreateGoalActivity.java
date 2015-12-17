@@ -1,9 +1,6 @@
 package com.example.simran.goaltracker;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,15 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
-
-import java.util.Calendar;
 
 public class CreateGoalActivity extends AppCompatActivity implements DatePickerFragment.OnDateSelectedListener, TimePickerFragment.OnTimeSelectedListener{
 
     DialogFragment newDateFragment;
     DialogFragment newTimeFragment;
+    Goal goal;
     int year, month, day, hourOfDay, minute;
     boolean isDateSet = false;
     boolean isTimeSet = false;
@@ -30,6 +25,7 @@ public class CreateGoalActivity extends AppCompatActivity implements DatePickerF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_goal);
 
+        goal = new Goal();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,14 +56,23 @@ public class CreateGoalActivity extends AppCompatActivity implements DatePickerF
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         //get the goal that the user inputs in the text box
-        EditText editText = (EditText) findViewById(R.id.type_new_goal);
-        String goal = editText.getText().toString();
+        EditText editTextGoal = (EditText) findViewById(R.id.editText_type_new_goal);
+        String goal = editTextGoal.getText().toString();
+
+        EditText editTextEstHours = (EditText) findViewById(R.id.editText_Est_Hours);
+        int hours = Integer.parseInt(editTextEstHours.getText().toString());
+        Log.d("hours:", ""+hours);
+
+        EditText editTextNote = (EditText) findViewById(R.id.editText_Note);
+        String note = editTextNote.getText().toString();
+        Log.d("note: ", ""+note);
 
 
         if(isDateSet && isTimeSet){
             Log.d("status", "date and time have been successfully set");
         //insert some data into a database
-        mDbHelper.insertGoal(db, goal,year,month,day,hourOfDay,minute);
+        long goalId = mDbHelper.insertGoal(db, goal,hours,year,month,day,hourOfDay,minute);
+        mDbHelper.insertGoalNote(db, goalId, note );
         }
         else
         {
@@ -92,6 +97,7 @@ public class CreateGoalActivity extends AppCompatActivity implements DatePickerF
 
     @Override
     public void onDateSelected(int year, int month, int day) {
+        goal.setYear(year); goal.setMonth(month); goal.setDay(day);
         this.year = year;
         this.month = month;
         this.day = day;
@@ -100,6 +106,7 @@ public class CreateGoalActivity extends AppCompatActivity implements DatePickerF
 
     @Override
     public void onTimeSelected(int hourOfDay, int minute) {
+        goal.setHourOfDay(hourOfDay); goal.setMinute(minute);
         this.hourOfDay = hourOfDay;
         this.minute = minute;
         isTimeSet = true;

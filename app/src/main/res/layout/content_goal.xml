@@ -26,4 +26,24 @@
         android:layout_height="wrap_content"
         android:hint="@string/deadline_default"/>
 
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView_hours_to_complete"
+        android:layout_below="@+id/goal_deadline"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:id="@+id/notes_list"
+        android:layout_below="@id/textView_hours_to_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </ListView>
+
+
 </RelativeLayout>

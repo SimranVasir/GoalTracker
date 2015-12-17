@@ -78,7 +78,7 @@ public class ViewGoalActivity extends AppCompatActivity {
         //instantiates the database
         GoalDBHelper mDbHelper = GoalDBHelper.getSingletonInstance(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        String[] goaltoset = mDbHelper.queryDatabase(db);
+        String[] goaltoset = mDbHelper.getAllGoals(db);
         Log.d("debugging", "end of queryAndDisplay method");
         return goaltoset;
 /*
