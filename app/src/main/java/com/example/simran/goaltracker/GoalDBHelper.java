@@ -221,6 +221,7 @@ public class GoalDBHelper extends SQLiteOpenHelper {
         }
     }
 
+
     public String[] getNotesForAGoal(SQLiteDatabase db, long goalId) {
         Log.i("goalId:", " "+goalId);
 
@@ -300,6 +301,38 @@ public class GoalDBHelper extends SQLiteOpenHelper {
                 contentValues);
         Log.i("insert", "insert ended");
         return newRowId;
+    }
+
+    /*
+ * Updates Goal with new data
+ * returns 1 if goal with goalName was found and updated
+ * returns 0 if no update occured.
+ */
+    public int updateGoal(String oldGoalName,String newGoalName, int estHours, int year, int month, int day, int hour, int minute) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_GOAL_NAME, newGoalName);
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_COMPLETED, 0);
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_ESTIMATED_HOURS, estHours);
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_DATE_YEAR, year);
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_DATE_MONTH, month);
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_DATE_DAY, day);
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_TIME_HOUR_OF_DAY, hour);
+        contentValues.put(GoalDataSchema.GoalSchema.COLUMN_NAME_TIME_MINUTE, minute);
+
+        // Which row to update, based on the ID
+        String selection = GoalDataSchema.GoalSchema.COLUMN_NAME_GOAL_NAME + " like '" + oldGoalName + "'";
+
+        //updates rows with data in the contentValues returns the number of Goal rows updated.
+        int count = db.update(
+                GoalDataSchema.GoalSchema.TABLE_NAME_GOAL,
+               contentValues,
+                selection,
+                null);
+
+        return count;
     }
 
     public long insertGoalNote(SQLiteDatabase db, long goalId, String noteName) {

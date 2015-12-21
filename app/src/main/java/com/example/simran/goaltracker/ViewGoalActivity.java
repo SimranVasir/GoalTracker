@@ -16,7 +16,7 @@ import android.widget.ListView;
 public class ViewGoalActivity extends AppCompatActivity {
 
     ListView listView;
-    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
+    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.ViewGoalActivity.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

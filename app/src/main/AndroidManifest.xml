@@ -45,6 +45,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.simran.goaltracker.ViewGoalActivity" />
         </activity>
+        <activity
+            android:name=".UpdateGoal"
+            android:label="@string/title_activity_update_goal"
+            android:parentActivityName=".GoalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.simran.goaltracker.GoalActivity" />
+        </activity>
     </application>
 
 </manifest>
