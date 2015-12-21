@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         //RelativeLayout rLayout;
         Resources res = getResources();
 
-        //rLayout = (RelativeLayout) findViewById(R.id.rLayout);
-        //rLayout.setBackgroundColor(Color.BLACK);
-
         // Get Listview object from xml
         listview = (ListView) findViewById(R.id.options_list);
 
